@@ -24,7 +24,6 @@ spec:
           kind: Object
           metadata:
             name: nginx-demo
-            namespace: apps
           spec:
             providerConfigRef:
               name: workload-cluster-1
@@ -58,6 +57,12 @@ spec:
                             cpu: 200m
                             memory: 256Mi
         patches:
+        - type: FromCompositeFieldPath
+          fromFieldPath: metadata.namespace
+          toFieldPath: metadata.namespace
+        - type: FromCompositeFieldPath
+          fromFieldPath: spec.parameters.appName
+          toFieldPath: metadata.name
         - type: FromCompositeFieldPath
           fromFieldPath: spec.parameters.appName
           toFieldPath: spec.forProvider.manifest.metadata.name
