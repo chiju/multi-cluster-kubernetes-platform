@@ -1,0 +1,10 @@
+apiVersion: platform.example.com/v1alpha1
+kind: XApplication
+metadata:
+  name: nginx-3
+  namespace: apps
+spec:
+  appName: nginx-3
+  image: nginx:1.21
+  replicas: 2
+  targetCluster: workload-cluster-1
