@@ -5,6 +5,9 @@ metadata:
   namespace: istio-system
 spec:
   gatewayClassName: istio
+  addresses:
+  - value: istio-gateway.istio-ingress.svc.cluster.local
+    type: Hostname
   listeners:
   - name: http
     hostname: kiali.local
