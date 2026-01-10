@@ -3,7 +3,7 @@ kind: CompositeResourceDefinition
 metadata:
   name: xapplications.platform.example.com
 spec:
-  scope: Cluster
+  scope: Namespaced
   group: platform.example.com
   names:
     kind: XApplication

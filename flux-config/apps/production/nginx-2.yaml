@@ -2,6 +2,7 @@ apiVersion: platform.example.com/v1alpha1
 kind: XApplication
 metadata:
   name: nginx-2
+  namespace: apps
 spec:
   parameters:
     appName: nginx-2
