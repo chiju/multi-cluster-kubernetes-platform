@@ -23,4 +23,5 @@ spec:
       prometheus:
         url: http://prometheus:9090
     server:
-      web_root: /kiali
+      web_root: /
+      web_fqdn: kiali.local
