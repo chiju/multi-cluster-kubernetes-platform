@@ -404,3 +404,19 @@ resource "aws_eks_pod_identity_association" "crossplane" {
     }
   )
 }
+
+# EKS Pod Identity Association for Crossplane AWS EKS Provider
+resource "aws_eks_pod_identity_association" "crossplane_aws_eks_provider" {
+  count           = var.enable_crossplane_pod_identity ? 1 : 0
+  cluster_name    = aws_eks_cluster.main.name
+  namespace       = "crossplane-system"
+  service_account = "provider-aws-eks"
+  role_arn        = aws_iam_role.crossplane[0].arn
+
+  tags = merge(
+    var.tags,
+    {
+      Name = "${var.name}-crossplane-aws-eks-provider-pod-identity"
+    }
+  )
+}

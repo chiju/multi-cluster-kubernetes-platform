@@ -200,3 +200,26 @@ resource "aws_iam_role_policy_attachment" "crossplane_power_user" {
   role       = aws_iam_role.crossplane[0].name
   policy_arn = "arn:aws:iam::aws:policy/PowerUserAccess"
 }
+
+# Add specific EKS permissions for cross-cluster access
+resource "aws_iam_role_policy" "crossplane_eks_access" {
+  count = var.enable_crossplane_pod_identity ? 1 : 0
+  name  = "${var.name}-crossplane-eks-access"
+  role  = aws_iam_role.crossplane[0].id
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect = "Allow"
+        Action = [
+          "eks:DescribeCluster",
+          "eks:ListClusters",
+          "eks:DescribeNodegroup",
+          "eks:ListNodegroups"
+        ]
+        Resource = "*"
+      }
+    ]
+  })
+}
