@@ -1,4 +1,4 @@
-apiVersion: platform.example.com/v1alpha1
+apiVersion: platform.example.com/v2
 kind: XApplication
 metadata:
   name: nginx-2
