@@ -9,7 +9,7 @@ spec:
     kind: XApplication
     plural: xapplications
   versions:
-  - name: v2
+  - name: v1alpha1
     served: true
     referenceable: true
     schema:
