@@ -24,6 +24,7 @@ spec:
           kind: Object
           metadata:
             name: nginx-demo
+            namespace: apps
           spec:
             providerConfigRef:
               name: workload-cluster-1
