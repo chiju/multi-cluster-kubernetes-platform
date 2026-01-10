@@ -1,0 +1,50 @@
+apiVersion: apiextensions.crossplane.io/v2
+kind: CompositeResourceDefinition
+metadata:
+  name: xeksclusters.platform.example.com
+spec:
+  scope: Namespaced
+  group: platform.example.com
+  names:
+    kind: XEKSCluster
+    plural: xeksclusters
+  versions:
+  - name: v1alpha1
+    served: true
+    referenceable: true
+    schema:
+      openAPIV3Schema:
+        type: object
+        properties:
+          spec:
+            type: object
+            properties:
+              parameters:
+                type: object
+                properties:
+                  clusterName:
+                    type: string
+                    description: Name of the EKS cluster
+                  nodeCount:
+                    type: integer
+                    description: Number of worker nodes
+                    default: 2
+                  nodeSize:
+                    type: string
+                    description: EC2 instance type for nodes
+                    default: "t3.medium"
+                  region:
+                    type: string
+                    description: AWS region
+                    default: "eu-central-1"
+                required:
+                - clusterName
+            required:
+            - parameters
+          status:
+            type: object
+            properties:
+              clusterEndpoint:
+                type: string
+              clusterStatus:
+                type: string

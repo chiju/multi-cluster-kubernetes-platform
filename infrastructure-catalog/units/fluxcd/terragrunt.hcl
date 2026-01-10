@@ -24,7 +24,7 @@ inputs = {
 
   # Git repository configuration
   git_repo_url = values.git_repo_url
-  target_path  = "flux-config/clusters/${values.environment}"
+  target_path  = values.target_path
 
   # GitHub App authentication
   github_app_id              = values.github_app_id

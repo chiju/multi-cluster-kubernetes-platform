@@ -1,0 +1,6 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - definitions/xekscluster.yaml
+  - definitions/xapplication.yaml
+  - compositions/eks-cluster.yaml

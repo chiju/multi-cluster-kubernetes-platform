@@ -60,6 +60,7 @@ unit "fluxcd" {
     
     # Git repository configuration
     git_repo_url = "https://github.com/chiju/multi-cluster-kubernetes-platform"
+    target_path  = "flux-config/clusters/management"
     
     # GitHub App authentication
     github_app_id              = get_env("FLUXCD_APP_ID")

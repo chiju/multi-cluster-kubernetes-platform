@@ -157,7 +157,7 @@ resource "null_resource" "create_gitops_resources" {
         sourceRef:
           kind: GitRepository
           name: platform-apps
-        path: ./flux-config/clusters/dev
+        path: ${var.target_path}
         prune: true
         wait: true
       EOF
