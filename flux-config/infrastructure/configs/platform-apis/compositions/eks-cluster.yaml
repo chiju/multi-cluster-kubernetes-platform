@@ -1,4 +1,4 @@
-apiVersion: apiextensions.crossplane.io/v2
+apiVersion: apiextensions.crossplane.io/v1
 kind: Composition
 metadata:
   name: eks-cluster
@@ -10,7 +10,6 @@ spec:
     apiVersion: platform.example.com/v1alpha1
     kind: XEKSCluster
   
-  mode: Resources
   resources:
   - name: eks-cluster
     base:
@@ -19,6 +18,7 @@ spec:
       spec:
         forProvider:
           region: eu-central-1
+          version: "1.34"
           version: "1.34"
           roleArnSelector:
             matchLabels:
