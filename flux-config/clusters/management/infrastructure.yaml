@@ -4,11 +4,11 @@ metadata:
   name: infra-controllers
   namespace: flux-system
 spec:
-  interval: 10m
+  interval: 10s
   sourceRef:
     kind: GitRepository
     name: flux-system
-  path: ./flux-config-new/infrastructure/controllers
+  path: ./flux-config/infrastructure/controllers
   prune: true
   wait: true
 ---
@@ -18,11 +18,11 @@ metadata:
   name: infra-configs
   namespace: flux-system
 spec:
-  interval: 10m
+  interval: 10s
   sourceRef:
     kind: GitRepository
     name: flux-system
-  path: ./flux-config-new/infrastructure/configs
+  path: ./flux-config/infrastructure/configs
   prune: true
   wait: true
   dependsOn:

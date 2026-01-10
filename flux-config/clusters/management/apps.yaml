@@ -4,11 +4,11 @@ metadata:
   name: apps
   namespace: flux-system
 spec:
-  interval: 10m
+  interval: 10s
   sourceRef:
     kind: GitRepository
     name: flux-system
-  path: ./flux-config-new/apps/production
+  path: ./flux-config/apps/production
   prune: true
   wait: true
   dependsOn:
