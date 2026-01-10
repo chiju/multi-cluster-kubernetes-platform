@@ -1,4 +1,4 @@
-apiVersion: apiextensions.crossplane.io/v2
+apiVersion: apiextensions.crossplane.io/v1
 kind: Composition
 metadata:
   name: application
@@ -18,18 +18,6 @@ spec:
       apiVersion: pt.fn.crossplane.io/v1beta1
       kind: Resources
       resources:
-      - name: namespace
-        base:
-          apiVersion: v1
-          kind: Namespace
-          metadata:
-            name: demo-app
-            labels:
-              istio-injection: enabled
-        patches:
-        - type: FromCompositeFieldPath
-          fromFieldPath: spec.parameters.namespace
-          toFieldPath: metadata.name
       - name: deployment
         base:
           apiVersion: apps/v1
@@ -72,30 +60,3 @@ spec:
         - type: FromCompositeFieldPath
           fromFieldPath: spec.parameters.replicas
           toFieldPath: spec.replicas
-        - type: FromCompositeFieldPath
-          fromFieldPath: spec.parameters.port
-          toFieldPath: spec.template.spec.containers[0].ports[0].containerPort
-      - name: service
-        base:
-          apiVersion: v1
-          kind: Service
-          metadata:
-            name: nginx-demo
-            namespace: demo-app
-          spec:
-            selector:
-              app: nginx-demo
-            ports:
-            - port: 80
-              targetPort: 80
-            type: ClusterIP
-        patches:
-        - type: FromCompositeFieldPath
-          fromFieldPath: spec.parameters.appName
-          toFieldPath: metadata.name
-        - type: FromCompositeFieldPath
-          fromFieldPath: spec.parameters.namespace
-          toFieldPath: metadata.namespace
-        - type: FromCompositeFieldPath
-          fromFieldPath: spec.parameters.port
-          toFieldPath: spec.ports[0].port
