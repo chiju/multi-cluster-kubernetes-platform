@@ -123,3 +123,9 @@ variable "tags" {
   type        = map(string)
   default     = {}
 }
+
+variable "enable_crossplane_pod_identity" {
+  description = "Enable EKS Pod Identity for Crossplane"
+  type        = bool
+  default     = false
+}

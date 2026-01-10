@@ -98,6 +98,7 @@ unit "management_cluster" {
     cluster_log_retention_days = 30
     enable_irsa               = true
     enable_cluster_autoscaler = true
+    enable_crossplane_pod_identity = true
     
     # Access entries
     github_role_arn     = null

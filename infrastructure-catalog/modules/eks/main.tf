@@ -388,3 +388,19 @@ resource "aws_eks_node_group" "main" {
     aws_iam_role_policy_attachment.node_group_registry_policy,
   ]
 }
+
+# EKS Pod Identity Association for Crossplane
+resource "aws_eks_pod_identity_association" "crossplane" {
+  count           = var.enable_crossplane_pod_identity ? 1 : 0
+  cluster_name    = aws_eks_cluster.main.name
+  namespace       = "crossplane-system"
+  service_account = "crossplane"
+  role_arn        = aws_iam_role.crossplane[0].arn
+
+  tags = merge(
+    var.tags,
+    {
+      Name = "${var.name}-crossplane-pod-identity"
+    }
+  )
+}

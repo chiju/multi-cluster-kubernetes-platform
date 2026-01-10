@@ -164,3 +164,39 @@ resource "aws_iam_role_policy_attachment" "ebs_csi_driver_policy" {
   policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy"
   role       = aws_iam_role.ebs_csi_driver.name
 }
+
+# Crossplane IAM Role for Pod Identity
+resource "aws_iam_role" "crossplane" {
+  count = var.enable_crossplane_pod_identity ? 1 : 0
+  name  = "${var.name}-crossplane-role"
+
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect = "Allow"
+        Principal = {
+          Service = "pods.eks.amazonaws.com"
+        }
+        Action = [
+          "sts:AssumeRole",
+          "sts:TagSession"
+        ]
+      }
+    ]
+  })
+
+  tags = merge(
+    var.tags,
+    {
+      Name = "${var.name}-crossplane-role"
+    }
+  )
+}
+
+# Attach PowerUserAccess policy to Crossplane role
+resource "aws_iam_role_policy_attachment" "crossplane_power_user" {
+  count      = var.enable_crossplane_pod_identity ? 1 : 0
+  role       = aws_iam_role.crossplane[0].name
+  policy_arn = "arn:aws:iam::aws:policy/PowerUserAccess"
+}
