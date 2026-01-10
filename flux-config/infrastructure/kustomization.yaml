@@ -4,3 +4,4 @@ resources:
   - istiod
   - istio-gateway
   - kiali
+  - workload-cluster-kubeconfig
