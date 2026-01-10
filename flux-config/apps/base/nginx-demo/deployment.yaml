@@ -2,7 +2,7 @@ apiVersion: platform.example.com/v1alpha1
 kind: XApplication
 metadata:
   name: nginx-demo
-  namespace: default
+  namespace: apps
 spec:
   parameters:
     appName: nginx-demo
