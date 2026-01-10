@@ -6,3 +6,4 @@ resources:
   - provider.yaml
   - provider-eks.yaml
   - function.yaml
+  - runtime-config.yaml
