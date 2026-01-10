@@ -4,3 +4,4 @@ resources:
   - providerconfig.yaml
   - clusterauth.yaml
   - eks-providerconfig.yaml
+  - eks-runtime-config.yaml
