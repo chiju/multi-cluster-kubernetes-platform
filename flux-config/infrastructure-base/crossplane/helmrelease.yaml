@@ -21,8 +21,6 @@ spec:
   upgrade:
     crds: CreateReplace
   values:
-    args:
-      - --enable-environment-configs
     resourcesCrossplane:
       limits:
         cpu: 500m
