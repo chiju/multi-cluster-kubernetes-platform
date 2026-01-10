@@ -15,9 +15,7 @@ spec:
         namespace: flux-system
       interval: 5s
   values:
-    image:
-      repository: istio/proxyv2
-      tag: 1.28.2
+    # Use default Istio proxy image
     service:
       type: LoadBalancer
       annotations:
