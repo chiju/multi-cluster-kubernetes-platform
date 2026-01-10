@@ -12,6 +12,9 @@ spec:
   - name: v1alpha1
     served: true
     referenceable: true
+  - name: v2
+    served: true
+    referenceable: false
     schema:
       openAPIV3Schema:
         type: object
