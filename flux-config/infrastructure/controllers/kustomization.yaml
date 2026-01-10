@@ -7,3 +7,4 @@ resources:
   - istiod
   - istio-gateway
   - provider-kubernetes
+  - provider-aws-eks
