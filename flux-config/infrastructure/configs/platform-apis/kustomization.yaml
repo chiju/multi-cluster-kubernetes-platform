@@ -4,3 +4,4 @@ resources:
   - definitions/xekscluster.yaml
   - definitions/xapplication.yaml
   - compositions/eks-cluster.yaml
+  - compositions/application.yaml
