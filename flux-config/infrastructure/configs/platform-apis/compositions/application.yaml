@@ -22,6 +22,8 @@ spec:
         base:
           apiVersion: kubernetes.crossplane.io/v1alpha1
           kind: Object
+          metadata:
+            name: nginx-demo
           spec:
             providerConfigRef:
               name: workload-cluster-1
