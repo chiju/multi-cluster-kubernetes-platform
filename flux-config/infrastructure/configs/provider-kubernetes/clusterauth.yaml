@@ -1,0 +1,11 @@
+apiVersion: eks.aws.upbound.io/v1beta1
+kind: ClusterAuth
+metadata:
+  name: workload-cluster-1-auth
+spec:
+  forProvider:
+    clusterName: workload-cluster-1
+    region: eu-central-1
+  writeConnectionSecretToRef:
+    name: workload-cluster-1-kubeconfig
+    namespace: crossplane-system
