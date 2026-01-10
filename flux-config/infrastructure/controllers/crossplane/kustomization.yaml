@@ -5,3 +5,4 @@ resources:
   - helmrelease.yaml
   - provider.yaml
   - provider-eks.yaml
+  - function.yaml
