@@ -41,6 +41,7 @@ inputs = {
   cluster_log_retention_days = values.cluster_log_retention_days
   enable_irsa                = values.enable_irsa
   enable_cluster_autoscaler  = values.enable_cluster_autoscaler
+  enable_crossplane_pod_identity = values.enable_crossplane_pod_identity
 
   # Access entries
   github_role_arn     = values.github_role_arn
