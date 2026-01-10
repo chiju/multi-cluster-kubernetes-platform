@@ -10,8 +10,8 @@ spec:
       chart: base
       version: "1.28.2"
       sourceRef:
-        kind: OCIRepository
-        name: istio-charts
+        kind: HelmRepository
+        name: istio
         namespace: flux-system
       interval: 5s
   install:
