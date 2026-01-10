@@ -1,0 +1,24 @@
+apiVersion: platform.company.com/v1alpha1
+kind: XApplication
+metadata:
+  name: nginx-demo
+  namespace: default
+spec:
+  name: nginx-demo
+  targetCluster: workload-cluster-1
+  namespace: demo-app
+  image: nginx:1.25
+  port: 80
+  replicas: 2
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      cpu: 200m
+      memory: 256Mi
+  ingress:
+    enabled: true
+    hostname: nginx.local
+    gateway: shared-gateway
+    gatewayNamespace: istio-ingress
