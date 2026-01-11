@@ -40,6 +40,22 @@ resource "helm_release" "flux_operator" {
   depends_on = [data.aws_eks_cluster.cluster]
 }
 
+# Add Istio injection label to flux-system namespace
+resource "kubernetes_labels" "flux_system_istio" {
+  count = length(data.aws_eks_cluster.cluster) > 0 ? 1 : 0
+  
+  api_version = "v1"
+  kind        = "Namespace"
+  metadata {
+    name = "flux-system"
+  }
+  labels = {
+    "istio-injection" = "enabled"
+  }
+  
+  depends_on = [helm_release.flux_operator]
+}
+
 # Create GitHub App secret with correct FluxCD field names
 resource "kubernetes_secret_v1" "flux_github_app" {
   count = length(data.aws_eks_cluster.cluster) > 0 ? 1 : 0
