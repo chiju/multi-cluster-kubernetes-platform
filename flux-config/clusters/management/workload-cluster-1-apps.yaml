@@ -10,5 +10,8 @@ spec:
   sourceRef:
     kind: GitRepository
     name: flux-system
+  kubeConfig:
+    secretRef:
+      name: workload-cluster-1-kubeconfig
   dependsOn:
   - name: infra-controllers

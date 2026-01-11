@@ -264,7 +264,43 @@ resource "aws_iam_role_policy" "flux_cross_cluster" {
           "eks:ListClusters"
         ]
         Resource = "*"
+      },
+      {
+        Effect = "Allow"
+        Action = [
+          "secretsmanager:GetSecretValue"
+        ]
+        Resource = "arn:aws:secretsmanager:*:*:secret:*-kubeconfig-*"
       }
     ]
   })
+}
+
+# Generate kubeconfig for workload clusters and store in Secrets Manager
+# This only works for management cluster creating secrets for its workload clusters
+resource "aws_secretsmanager_secret" "workload_kubeconfig" {
+  count = var.enable_cross_cluster_access && var.name != "management-cluster" ? 0 : length(var.workload_cluster_names)
+  
+  name = "${var.workload_cluster_names[count.index]}-kubeconfig"
+  
+  tags = merge(var.tags, {
+    Name = "${var.workload_cluster_names[count.index]}-kubeconfig"
+  })
+}
+
+# For now, create placeholder - will be updated by a separate process
+resource "aws_secretsmanager_secret_version" "workload_kubeconfig" {
+  count = var.enable_cross_cluster_access && var.name != "management-cluster" ? 0 : length(var.workload_cluster_names)
+  
+  secret_id = aws_secretsmanager_secret.workload_kubeconfig[count.index].id
+  secret_string = templatefile("${path.module}/kubeconfig.tpl", {
+    cluster_name     = var.workload_cluster_names[count.index]
+    cluster_endpoint = "https://placeholder-will-be-updated.eks.amazonaws.com"
+    cluster_ca       = "placeholder-ca-cert"
+    region          = data.aws_region.current.name
+  })
+  
+  lifecycle {
+    ignore_changes = [secret_string]
+  }
 }

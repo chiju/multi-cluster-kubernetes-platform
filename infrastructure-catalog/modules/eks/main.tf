@@ -4,6 +4,8 @@ data "aws_vpc" "main" {
   id    = var.vpc_id
 }
 
+data "aws_region" "current" {}
+
 # KMS Key for EKS cluster encryption
 resource "aws_kms_key" "eks" {
   description             = "EKS cluster encryption key for ${var.name}"
