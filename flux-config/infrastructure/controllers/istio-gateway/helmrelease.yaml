@@ -4,7 +4,7 @@ metadata:
   name: istio-gateway
   namespace: istio-ingress
 spec:
-  interval: 5s
+  interval: 10s
   chart:
     spec:
       chart: gateway
@@ -13,9 +13,8 @@ spec:
         kind: HelmRepository
         name: istio
         namespace: flux-system
-      interval: 5s
+      interval: 10s
   values:
-    # Use default Istio proxy image
     service:
       type: LoadBalancer
       annotations:
