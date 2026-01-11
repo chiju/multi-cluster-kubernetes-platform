@@ -17,11 +17,13 @@ spec:
   targetNamespace: external-secrets-system
   install:
     createNamespace: true
+    crds: CreateReplace
+  upgrade:
+    crds: CreateReplace
   values:
     serviceAccount:
       create: true
       name: external-secrets
-    installCRDs: true
     replicaCount: 1
     resources:
       requests:
