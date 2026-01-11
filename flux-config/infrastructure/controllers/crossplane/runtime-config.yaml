@@ -1,8 +1,0 @@
-apiVersion: pkg.crossplane.io/v1beta1
-kind: DeploymentRuntimeConfig
-metadata:
-  name: default
-spec:
-  serviceAccountTemplate:
-    metadata:
-      name: provider-aws-eks
