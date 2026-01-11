@@ -483,3 +483,20 @@ resource "aws_eks_pod_identity_association" "flux_cross_cluster" {
     }
   )
 }
+
+# Pod Identity Association for External Secrets Operator
+resource "aws_eks_pod_identity_association" "external_secrets" {
+  count = var.enable_cross_cluster_access ? 1 : 0
+
+  cluster_name    = aws_eks_cluster.main.name
+  namespace       = "external-secrets-system"
+  service_account = "external-secrets"
+  role_arn        = aws_iam_role.flux_cross_cluster[0].arn
+
+  tags = merge(
+    var.tags,
+    {
+      Name = "${var.name}-external-secrets-pod-identity"
+    }
+  )
+}
