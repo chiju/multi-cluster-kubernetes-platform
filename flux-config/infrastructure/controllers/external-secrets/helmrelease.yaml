@@ -18,4 +18,4 @@ spec:
     installCRDs: true
     serviceAccount:
       annotations:
-        eks.amazonaws.com/role-arn: "arn:aws:iam::${AWS_ACCOUNT_ID}:role/management-cluster-flux-cross-cluster-role"
+        eks.amazonaws.com/role-arn: "arn:aws:iam::054715966742:role/management-cluster-flux-cross-cluster-role"
