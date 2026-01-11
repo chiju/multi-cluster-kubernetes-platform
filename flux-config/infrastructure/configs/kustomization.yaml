@@ -3,4 +3,3 @@ kind: Kustomization
 resources:
   - kiali
   - gateway-api
-  - external-secrets
