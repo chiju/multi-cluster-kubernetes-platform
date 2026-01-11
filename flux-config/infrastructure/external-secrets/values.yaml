@@ -1,0 +1,36 @@
+# External Secrets Operator configuration
+external-secrets:
+  # Pod Identity is used instead of IRSA annotations
+  serviceAccount:
+    create: true
+    name: external-secrets
+  
+  # Install CRDs
+  installCRDs: true
+  
+  # Controller configuration
+  replicaCount: 1
+  
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      cpu: 500m
+      memory: 256Mi
+  
+  # Security context
+  securityContext:
+    allowPrivilegeEscalation: false
+    capabilities:
+      drop:
+      - ALL
+    readOnlyRootFilesystem: true
+    runAsNonRoot: true
+    runAsUser: 65534
+  
+  # Pod security context
+  podSecurityContext:
+    fsGroup: 65534
+    runAsNonRoot: true
+    runAsUser: 65534
