@@ -66,3 +66,8 @@ output "ebs_csi_driver_role_arn" {
   description = "EBS CSI Driver IAM role ARN"
   value       = aws_iam_role.ebs_csi_driver.arn
 }
+
+output "flux_cross_cluster_role_arn" {
+  description = "Flux cross-cluster IAM role ARN"
+  value       = var.enable_cross_cluster_access ? aws_iam_role.flux_cross_cluster[0].arn : null
+}

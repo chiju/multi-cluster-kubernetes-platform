@@ -42,6 +42,8 @@ inputs = {
   enable_irsa                = values.enable_irsa
   enable_cluster_autoscaler  = values.enable_cluster_autoscaler
   enable_crossplane_pod_identity = values.enable_crossplane_pod_identity
+  enable_cross_cluster_access = try(values.enable_cross_cluster_access, false)
+  workload_cluster_names = try(values.workload_cluster_names, [])
 
   # Access entries
   github_role_arn     = values.github_role_arn

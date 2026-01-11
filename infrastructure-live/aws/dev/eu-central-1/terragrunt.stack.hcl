@@ -100,6 +100,8 @@ unit "management_cluster" {
     enable_irsa               = true
     enable_cluster_autoscaler = true
     enable_crossplane_pod_identity = true
+    enable_cross_cluster_access = true
+    workload_cluster_names = ["workload-cluster-1"]
     
     # Access entries
     github_role_arn     = null

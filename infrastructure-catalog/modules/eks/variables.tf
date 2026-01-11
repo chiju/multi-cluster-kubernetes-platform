@@ -129,3 +129,15 @@ variable "enable_crossplane_pod_identity" {
   type        = bool
   default     = false
 }
+
+variable "enable_cross_cluster_access" {
+  description = "Enable cross-cluster access for this cluster (management cluster only)"
+  type        = bool
+  default     = false
+}
+
+variable "workload_cluster_names" {
+  description = "List of workload cluster names to grant access to (for management cluster)"
+  type        = list(string)
+  default     = []
+}

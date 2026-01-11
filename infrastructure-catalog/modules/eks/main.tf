@@ -366,6 +366,27 @@ resource "aws_eks_access_policy_association" "org_access_admin" {
   depends_on = [aws_eks_access_entry.org_access]
 }
 
+# EKS Access Entry for Cross-Cluster Flux Role (on workload clusters)
+resource "aws_eks_access_entry" "flux_cross_cluster" {
+  count         = var.enable_cross_cluster_access ? 0 : 1  # Only on workload clusters
+  cluster_name  = aws_eks_cluster.main.name
+  principal_arn = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/management-cluster-flux-cross-cluster-role"
+  type          = "STANDARD"
+}
+
+resource "aws_eks_access_policy_association" "flux_cross_cluster_admin" {
+  count         = var.enable_cross_cluster_access ? 0 : 1  # Only on workload clusters
+  cluster_name  = aws_eks_cluster.main.name
+  principal_arn = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/management-cluster-flux-cross-cluster-role"
+  policy_arn    = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSClusterAdminPolicy"
+
+  access_scope {
+    type = "cluster"
+  }
+
+  depends_on = [aws_eks_access_entry.flux_cross_cluster]
+}
+
 # EKS Node Group - Let EKS manage everything automatically
 resource "aws_eks_node_group" "main" {
   cluster_name    = aws_eks_cluster.main.name
@@ -436,6 +457,27 @@ resource "aws_eks_pod_identity_association" "crossplane_aws_eks_provider" {
     var.tags,
     {
       Name = "${var.name}-crossplane-aws-eks-provider-pod-identity"
+    }
+  )
+}
+
+# Cross-cluster Pod Identity Associations for Flux controllers (management cluster only)
+resource "aws_eks_pod_identity_association" "flux_cross_cluster" {
+  for_each = var.enable_cross_cluster_access ? toset([
+    "source-controller",
+    "kustomize-controller", 
+    "helm-controller"
+  ]) : toset([])
+
+  cluster_name    = aws_eks_cluster.main.name
+  namespace       = "flux-system"
+  service_account = each.value
+  role_arn        = aws_iam_role.flux_cross_cluster[0].arn
+
+  tags = merge(
+    var.tags,
+    {
+      Name = "${var.name}-flux-${each.value}-pod-identity"
     }
   )
 }

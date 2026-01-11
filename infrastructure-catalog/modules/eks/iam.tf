@@ -223,3 +223,48 @@ resource "aws_iam_role_policy" "crossplane_eks_access" {
     ]
   })
 }
+# Cross-cluster GitOps IAM Role (only for management cluster)
+resource "aws_iam_role" "flux_cross_cluster" {
+  count = var.enable_cross_cluster_access ? 1 : 0
+  name  = "${var.name}-flux-cross-cluster-role"
+
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect = "Allow"
+        Principal = {
+          Service = "pods.eks.amazonaws.com"
+        }
+        Action = [
+          "sts:AssumeRole",
+          "sts:TagSession"
+        ]
+      }
+    ]
+  })
+
+  tags = merge(var.tags, {
+    Name = "${var.name}-flux-cross-cluster-role"
+  })
+}
+
+resource "aws_iam_role_policy" "flux_cross_cluster" {
+  count = var.enable_cross_cluster_access ? 1 : 0
+  name  = "${var.name}-flux-cross-cluster-policy"
+  role  = aws_iam_role.flux_cross_cluster[0].id
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect = "Allow"
+        Action = [
+          "eks:DescribeCluster",
+          "eks:ListClusters"
+        ]
+        Resource = "*"
+      }
+    ]
+  })
+}
