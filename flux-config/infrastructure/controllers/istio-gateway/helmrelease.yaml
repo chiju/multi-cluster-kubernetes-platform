@@ -7,9 +7,9 @@ spec:
   interval: 10s
   dependsOn:
   - name: istio-base
-    namespace: flux-system
+    namespace: istio-system
   - name: istiod
-    namespace: flux-system
+    namespace: istio-system
   chart:
     spec:
       chart: gateway
