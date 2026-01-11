@@ -5,4 +5,3 @@ resources:
   - gateway-api
   - istiod
   - istio-gateway
-  - external-secrets
