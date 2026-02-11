@@ -1,6 +1,6 @@
 # Multi-Cluster Kubernetes Platform
 
-Enterprise-grade multi-cluster Kubernetes platform demonstrating progressive architecture patterns for learning and interviews.
+multi-cluster Kubernetes platform demonstrating progressive architecture patterns
 
 ## 🎯 Learning Objectives
 
